@@ -27,7 +27,11 @@ will contain the following:
 
 These files constitute a bare plugin library and a simple test for the 
 `load_modules` function. New modules and property types can be added and
-registered following the [PluginPlay tutorials](https://nwchemex.github.io/PluginPlay/tutorials/index.html).You can configure, build, and test the new plugin as follows:
+registered following the [PluginPlay tutorials](https://nwchemex.github.io/PluginPlay/tutorials/index.html).
+The resulting library will depend on [SimDE](https://github.com/NWChemEx/SimDE).
+See [here](https://nwchemex.github.io/SimDE/install.html#simde-dependencies) for
+the further info on SimDE's dependencies. You can configure, build, and test the
+new plugin as follows:
 
 ```bash
 $ cmake -Bbuild -H. -DCMAKE_TOOLCHAIN_FILE=./default_toolchain.cmake -DCMAKE_INSTALL_PREFIX=./install
