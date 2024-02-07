@@ -1,17 +1,16 @@
 cmake_minimum_required(VERSION 3.14)
 
 ## Set Project and Version
-file(STRINGS "${CMAKE_CURRENT_SOURCE_DIR}/plugin_name.txt" PLUGIN_NAME)
 file(STRINGS "${CMAKE_CURRENT_SOURCE_DIR}/version.txt" VERSION)
-project("${PLUGIN_NAME}" VERSION "${VERSION}" LANGUAGES CXX)
+project({{ cookiecutter.project_slug }} VERSION "${VERSION}" LANGUAGES CXX)
 
 ## Get CMaize
 include(cmake/get_cmaize.cmake)
 
 ## Paths ##
-set(PLUGIN_SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/src")
-set(PLUGIN_INCLUDE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/include")
-set(PLUGIN_TESTS_DIR "${CMAKE_CURRENT_SOURCE_DIR}/tests")
+set(${PROJECT_NAME}_SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/src")
+set(${PROJECT_NAME}_INCLUDE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/include")
+set(${PROJECT_NAME}_TESTS_DIR "${CMAKE_CURRENT_SOURCE_DIR}/tests")
 
 ## Options ##
 cmaize_option_list(
@@ -31,8 +30,8 @@ cmaize_find_or_build_dependency(
 ## Add libraries ##
 cmaize_add_library(
     ${PROJECT_NAME}
-    SOURCE_DIR "${PLUGIN_SOURCE_DIR}/${PROJECT_NAME}"
-    INCLUDE_DIRS "${PLUGIN_INCLUDE_DIR}/${PROJECT_NAME}"
+    SOURCE_DIR "${${PROJECT_NAME}_SOURCE_DIR}/${PROJECT_NAME}"
+    INCLUDE_DIRS "${${PROJECT_NAME}_INCLUDE_DIR}/${PROJECT_NAME}"
     DEPENDS simde
 )
 
@@ -50,8 +49,8 @@ if("${BUILD_TESTING}")
     ## Add Tests ##
     cmaize_add_tests(
         test_${PROJECT_NAME}
-        SOURCE_DIR "${PLUGIN_TESTS_DIR}/unit_tests"
-        INCLUDE_DIRS "${PLUGIN_INCLUDE_DIR}/${PROJECT_NAME}"
+        SOURCE_DIR "${${PROJECT_NAME}_TESTS_DIR}/unit_tests"
+        INCLUDE_DIRS "${${PROJECT_NAME}_INCLUDE_DIR}/${PROJECT_NAME}"
         DEPENDS Catch2 ${PROJECT_NAME}
     )
 

@@ -4,41 +4,54 @@ Plugin Template
 This repository is intended to be used as a quickstart for writing a plugin
 library consistent with [PluginPlay](https://github.com/NWChemEx/PluginPlay).
 
-The primary contents of this repo are as follows:
-- `README.md` - This file.
-- `setup_new_plugin.sh` - The main component of this repo, used to generate the
-  starting files for the new plugin. More on this below.
-- `cmake/get_cmaize.cmake` - A CMake function to retrieve and include the 
-  [CMaize](https://github.com/CMakePP/CMaize) library.
-- `CMakeLists.txt` - The CMakeLists file for the new plugin produced by the
-  running `setup_new_plugin.sh`.
-
 ## Generating the New Plugin
-After cloning this repo, the first step is to run `setup_new_plugin.sh`. The
-name of the new plugin (`plugin_name`) can either be passed as an argument when 
-the script is called or you will be prompted for the name when the script runs.
-After running the script, eight files should be produced:
-- `plugin_name.txt` - Holds the name of the plugin. Used by `CMakeLists.txt`.
+
+This template is generated with the 
+[Cookiecutter](https://github.com/cookiecutter/cookiecutter) package:
+
+```bash
+# Install cookiecutter, if not already
+$ pip install cookiecutter
+# Generate the template
+$ cookiecutter https://github.com/NWChemEx/PluginTemplate.git
+```
+Follow the resulting to prompts to generate your plugin. The resulting directory
+will contain the following:
 - `version.txt` - Holds the version of the plugin. Used by `CMakeLists.txt`.
-- `toolchain.cmake` - A simple CMake toolchain. Ignored by Git.
+- `default_toolchain.cmake` - A simple CMake toolchain. Ignored by Git.
 - `include/{plugin_name}/{plugin_name}.hpp` - An initial courtesy header file.
-- `include/{plugin_name}/{plugin_name}_mm.hpp` - A header file declaring the 
-`load_modules` function of the plugin.
-- `src/{plugin_name}/{plugin_name}_mm.cpp` - A source file defining the 
-`load_modules` function of the plugin.
+- `include/{plugin_name}/{plugin_name}_mm.hpp` - A header file declaring the plugin.
+- `src/{plugin_name}/{plugin_name}_mm.cpp` - A source file defining the the plugin.
 - `tests/unit_tests/test_main.cpp` - A main source file for a Catch2 test.
-- `tests/unit_tests/test_load_modules.cpp` - A source file for a test of the 
-`load_modules` function.
+- `tests/unit_tests/test_load_modules.cpp` - A source file for a test of the `load_modules` function.
 
 These files constitute a bare plugin library and a simple test for the 
-`load_modules` function. New modules and property types shoudl be added and
-registered following the [PluginPlay tutorials](https://nwchemex.github.io/PluginPlay/tutorials/index.html).
+`load_modules` function. New modules and property types can be added and
+registered following the [PluginPlay tutorials](https://nwchemex.github.io/PluginPlay/tutorials/index.html).You can configure, build, and test the new plugin as follows:
 
-## Clean-Up
-Once the new plugin has been generated, the developers will want to change the
-git `origin` associated with the repo to one corresponding to the new plugin.
-This is accomplished with the command 
+```bash
+$ cmake -Bbuild -H. -DCMAKE_TOOLCHAIN_FILE=./default_toolchain.cmake -DCMAKE_INSTALL_PREFIX=./install
+$ cmake --build build --parallel 2
+$ cd build
+$ ctest -VV
 ```
-git remote set-url origin {your_url_here}
+
+At this point, you can initialize git and set up remotes:
+
+```bash
+$ git init
+$ git add .
+$ git commit -m "Initial State"
+$ git remote add origin {Your Remote Repo}
+$ git push -u origin master
 ```
-Also, this markdown file should be modified to represent the new plugin.
+
+# Contributing
+
+- [Contributor Guidelines](https://github.com/NWChemEx/.github/blob/1a883d64519f62da7c8ba2b28aabda7c6f196b2c/.github/CONTRIBUTING.md)
+- [Contributor License Agreement](https://github.com/NWChemEx/.github/blob/master/.github/CONTRIBUTING.md#contributor-license-agreement-cla)
+- [Code of Conduct](https://github.com/NWChemEx/.github/blob/master/.github/CODE_OF_CONDUCT.md)
+
+# Acknowledgments
+
+Add...
