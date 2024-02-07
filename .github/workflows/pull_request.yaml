@@ -41,7 +41,7 @@ jobs:
           mv $ZIP $SOURCE_DIR/$ZIP &&
           popd &&
           echo  "Cookiecutter full path: $PWD/$ZIP")
-        shell: bashe
+        shell: bash
       - name: Test current state
         run: |
           # Generate the template
