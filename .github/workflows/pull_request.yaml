@@ -36,7 +36,7 @@ jobs:
         shell: bash
       - name: Install Zip
         run: |
-          apt-get update && apt-get install zip
+          apt-get update && apt-get install -y zip
         shell: bash
       - name: Zip current state
         run: |
