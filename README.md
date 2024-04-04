@@ -15,7 +15,7 @@ $ pip install cookiecutter
 # Generate the template
 $ cookiecutter https://github.com/NWChemEx/PluginTemplate.git
 ```
-Follow the resulting to prompts to generate your plugin. The resulting directory
+Follow the resulting two prompts to generate your plugin. The resulting directory
 will contain the following:
 - `version.txt` - Holds the version of the plugin. Used by `CMakeLists.txt`.
 - `default_toolchain.cmake` - A simple CMake toolchain. Ignored by Git.
