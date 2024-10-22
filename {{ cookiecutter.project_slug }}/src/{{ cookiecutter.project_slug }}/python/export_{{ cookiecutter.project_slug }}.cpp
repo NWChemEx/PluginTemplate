@@ -1,8 +1,8 @@
 #include <pluginplay/pluginplay.hpp>
 #include <{{ cookiecutter.project_slug }}/{{ cookiecutter.project_slug }}.hpp>
 
-namespace {{ cookiecutter.plugin_slug }} {
+namespace {{ cookiecutter.project_slug }} {
 
 EXPORT_PLUGIN({{ cookiecutter.project_slug }}, m) {}
 
-} // namespace {{ cookiecutter.plugin_slug }}
+} // namespace {{ cookiecutter.project_slug }}

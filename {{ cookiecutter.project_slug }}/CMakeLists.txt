@@ -1,15 +1,22 @@
 cmake_minimum_required(VERSION 3.14)
 
 ## Get CMaize and some CMake modules for exporting plugins to Python
-include(cmake/get_nwx_cmake.cmake)
+include(cmake/get_cmake_modules.cmake)
 
 ## Set Project and Version
+
+{%- if cookiecutter.nwx_cmake -%}
 
 # TODO: Uncomment when you have a git tag
 #include(get_version_from_git)
 #get_version_from_git(VERSION "${CMAKE_CURRENT_LIST_DIR}")
 set(VERSION "0.0.1")  # Delete this line if you uncomment line above
 
+{%- else -%}
+
+set(VERSION "0.0.1")
+
+{% endif %}
 project({{ cookiecutter.project_slug }} VERSION "${VERSION}" LANGUAGES CXX)
 
 ## Paths ##
@@ -17,6 +24,11 @@ set(${PROJECT_NAME}_SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/src")
 set(${PROJECT_NAME}_INCLUDE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/include")
 set(${PROJECT_NAME}_TESTS_DIR "${CMAKE_CURRENT_SOURCE_DIR}/tests")
 
+{%- if cookiecutter.nwx_cmake -%}
+
+include(nwx_versions)
+{% endif %}
+include(get_cmaize)
 
 ## Options ##
 cmaize_option_list(
@@ -42,12 +54,15 @@ cmaize_add_library(
     DEPENDS simde
 )
 
+{%- if cookiecutter.nwx_cmake -%}
+
 include(nwx_pybind11)
 nwx_add_pybind11_module(
     ${PROJECT_NAME}
     SOURCE_DIR "${project_src_dir}/python"
     DEPENDS ${PROJECT_NAME}
 )
+{% endif %}
 
 ## Build tests ##
 if("${BUILD_TESTING}")
@@ -69,6 +84,8 @@ if("${BUILD_TESTING}")
         DEPENDS Catch2 ${PROJECT_NAME}
     )
 
+    {%- if cookiecutter.nwx_cmake -%}
+
     if("${INTEGRATION_TESTING}")
         cmaize_find_or_build_dependency(
             nwchemex
@@ -87,6 +104,7 @@ if("${BUILD_TESTING}")
         )
 
     endif()
+    {% endif %}
 
 endif()
 
