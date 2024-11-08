@@ -22,7 +22,7 @@ on:
 
 jobs:
   default_run:
-    uses: ./workflows/build_plugin_template.yaml
+    uses: ./.github/workflows/build_plugin_template.yaml
     with:
       project_name: "New Plugin"
     secrets:
