@@ -3,7 +3,7 @@ include_guard()
 macro(get_cmake_modules)
     include(FetchContent)
 
-    {%- if cookiecutter.nwx_cmake -%}
+    {% if cookiecutter.nwx_cmake %}
     FetchContent_Declare(
         nwx_cmake
         GIT_REPOSITORY https://github.com/NWChemEx/NWXCMake
@@ -14,8 +14,7 @@ macro(get_cmake_modules)
         CACHE STRING ""
         FORCE
     )
-    {%- else -%}
-
+    {% else %}
     if("${CMAIZE_VERSION}" STREQUAL "")
         set(CMAIZE_VERSION v1.1.0 )
     endif()

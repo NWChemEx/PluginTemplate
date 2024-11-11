@@ -4,18 +4,13 @@ cmake_minimum_required(VERSION 3.14)
 include(cmake/get_cmake_modules.cmake)
 
 ## Set Project and Version
-
-{%- if cookiecutter.nwx_cmake -%}
-
+{% if cookiecutter.nwx_cmake %}
 # TODO: Uncomment when you have a git tag
 #include(get_version_from_git)
 #get_version_from_git(VERSION "${CMAKE_CURRENT_LIST_DIR}")
 set(VERSION "0.0.1")  # Delete this line if you uncomment line above
-
-{%- else -%}
-
-set(VERSION "0.0.1")
-
+{% else %}
+set(VERSION "0.0.1") # Change this to your plugin's actual version
 {% endif %}
 project({{ cookiecutter.project_slug }} VERSION "${VERSION}" LANGUAGES CXX)
 
@@ -24,8 +19,7 @@ set(${PROJECT_NAME}_SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/src")
 set(${PROJECT_NAME}_INCLUDE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/include")
 set(${PROJECT_NAME}_TESTS_DIR "${CMAKE_CURRENT_SOURCE_DIR}/tests")
 
-{%- if cookiecutter.nwx_cmake -%}
-
+{% if cookiecutter.nwx_cmake %}
 include(nwx_versions)
 {% endif %}
 include(get_cmaize)
@@ -54,8 +48,7 @@ cmaize_add_library(
     DEPENDS simde
 )
 
-{%- if cookiecutter.nwx_cmake -%}
-
+{% if cookiecutter.nwx_cmake %}
 include(nwx_pybind11)
 nwx_add_pybind11_module(
     ${PROJECT_NAME}
@@ -76,16 +69,16 @@ if("${BUILD_TESTING}")
         VERSION v2.x
     )
 
+    set(UNIT_TEST_DIR "${${PROJECT_NAME}_TESTS_DIR}/unit_tests")
     ## Add Tests ##
     cmaize_add_tests(
         test_${PROJECT_NAME}
-        SOURCE_DIR "${${PROJECT_NAME}_TESTS_DIR}/unit_tests/${PROJECT_NAME}"
+        SOURCE_DIR "${UNIT_TEST_DIR}/${PROJECT_NAME}"
         INCLUDE_DIRS "${${PROJECT_NAME}_INCLUDE_DIR}/${PROJECT_NAME}"
         DEPENDS Catch2 ${PROJECT_NAME}
     )
 
-    {%- if cookiecutter.nwx_cmake -%}
-
+    {% if cookiecutter.nwx_cmake %}
     if("${INTEGRATION_TESTING}")
         cmaize_find_or_build_dependency(
             nwchemex
@@ -95,9 +88,11 @@ if("${BUILD_TESTING}")
             CMAKE_ARGS BUILD_TESTING=OFF
         )
 
+
+        set(INTEGRATION_DIR "${${PROJECT_NAME}_TESTS_DIR}/integration_tests")
         nwx_pybind11_tests(
             py_${PROJECT_NAME}
-            "${${PROJECT_NAME}_TESTS_DIR}/integration_tests/test_${PROJECT_NAME}.py"
+            "${INTEGRATION_DIR}/${PROJECT_NAME}/test_${PROJECT_NAME}.py"
             DEPENDS nwchemex
             SUBMODULES simde chemist pluginplay parallelzone friendzone 
                        chemcache nwchemex

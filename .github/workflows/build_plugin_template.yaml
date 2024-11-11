@@ -9,7 +9,11 @@ on:
       project_slug:
         required: false
         type: string
-        default: "new_project"
+        default: "new_plugin"
+      nwx_cmake:
+        required: false
+        type: bool
+        default: true
     secrets:
       CONTAINER_REPO_TOKEN:
         required: true
@@ -49,10 +53,13 @@ jobs:
         run: |
           echo "default_context:" > configure.yaml
           echo "  project_name: ${PROJECT_NAME}" >> configure.yaml
+          echo "  project_slug: ${PROJECT_SLUG}" >> configure.yaml
+          echo "  nwx_cmake: ${NWX_CMAKE}" >> configure.yaml
         shell: bash
         env:
           PROJECT_NAME: ${{ inputs.project_name }}
           PROJECT_SLUG: ${{ inputs.project_slug }}
+          NWX_CMAKE: ${{ inputs.nwx_cmake }}
 
       - name: Test current state
         run: |       

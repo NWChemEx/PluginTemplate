@@ -1,8 +1,14 @@
+""" Example of how to use the full NWX ecosystem in a test.
+
+In the setUp method for this test we load ALL of the released NWX plugins. We
+then load this plugin, i.e., the plugin we are testing.
+"""
+
 import nwchemex as nwx
 import simde
 import pluginplay
 import unittest
-
+import {{ cookiecutter.project_slug }}
 
 class AnExampleIntegrationTest(unittest.TestCase):
 
@@ -24,4 +30,7 @@ class AnExampleIntegrationTest(unittest.TestCase):
 
     def setUp(self):
         self.mm = pluginplay.ModuleManager()
+        
         nwx.load_modules(self.mm)
+        {{ cookiecutter.project_slug}}.load_modules(self.mm) 
+
