@@ -23,7 +23,23 @@ on:
 jobs:
   default_run:
     uses: ./.github/workflows/build_plugin_template.yaml
+    secrets:
+      CONTAINER_REPO_TOKEN: ${{ secrets.CONTAINER_REPO_TOKEN }}
+  set_project_name:
+    uses: ./.github/workflows/build_plugin_template.yaml
     with:
-      project_name: "New Plugin"
+      project_name: "NeW PluGIN" #Needs to result in default slug
+    secrets:
+      CONTAINER_REPO_TOKEN: ${{ secrets.CONTAINER_REPO_TOKEN }}
+  set_project_slug:
+    uses: ./.github/workflows/build_plugin_template.yaml
+    with:
+      project_slug: "my_super_awesome_plugin"
+    secrets:
+      CONTAINER_REPO_TOKEN: ${{ secrets.CONTAINER_REPO_TOKEN }}
+  no_nwx_cmake:
+      uses: ./.github/workflows/build_plugin_template.yaml
+    with:
+      nwx_cmake: false
     secrets:
       CONTAINER_REPO_TOKEN: ${{ secrets.CONTAINER_REPO_TOKEN }}

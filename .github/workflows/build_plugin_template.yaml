@@ -12,7 +12,7 @@ on:
         default: "new_plugin"
       nwx_cmake:
         required: false
-        type: bool
+        type: boolean
         default: true
     secrets:
       CONTAINER_REPO_TOKEN:
