@@ -2,7 +2,7 @@ name: 'Configure and build PluginTemplate'
 
 on:
   workflow_call:
-    inputs:
+    inputs: # Note these need to be manually synched with template
       project_name:
         required: false
         type: string
