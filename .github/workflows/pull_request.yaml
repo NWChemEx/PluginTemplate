@@ -38,7 +38,7 @@ jobs:
     secrets:
       CONTAINER_REPO_TOKEN: ${{ secrets.CONTAINER_REPO_TOKEN }}
   no_nwx_cmake:
-      uses: ./.github/workflows/build_plugin_template.yaml
+    uses: ./.github/workflows/build_plugin_template.yaml
     with:
       nwx_cmake: false
     secrets:
