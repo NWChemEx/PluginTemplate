@@ -36,7 +36,7 @@ jobs:
       - name: Install ase
         run: pip install ase
       - name: Install NWChem
-        run: sudo ap-get install -y nwchem    
+        run: sudo apt-get install -y nwchem    
       - name: Install Zip
         run: |
           apt-get update && apt-get install -y zip
