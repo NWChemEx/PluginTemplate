@@ -29,11 +29,14 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Install cookecutter
+      - name: Install cookeicutter
         run: |
           pip install cookiecutter
         shell: bash
-    
+      - name: Install ase
+        run: pip install ase
+      - name: Install NWChem
+        run: sudo ap-get install -y nwchem    
       - name: Install Zip
         run: |
           apt-get update && apt-get install -y zip
