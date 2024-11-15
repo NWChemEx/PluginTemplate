@@ -52,7 +52,7 @@ cmaize_add_library(
 include(nwx_pybind11)
 nwx_add_pybind11_module(
     ${PROJECT_NAME}
-    SOURCE_DIR "${project_src_dir}/python"
+    SOURCE_DIR "${${PROJECT_NAME}_SOURCE_DIR}/python"
     DEPENDS ${PROJECT_NAME}
 )
 {% endif %}
