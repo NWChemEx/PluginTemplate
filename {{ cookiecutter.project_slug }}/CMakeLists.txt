@@ -1,10 +1,10 @@
 cmake_minimum_required(VERSION 3.14)
 
+## Set Project and Version
+{% if cookiecutter.nwx_cmake %}
 ## Get CMaize and some CMake modules for exporting plugins to Python
 include(cmake/get_cmake_modules.cmake)
 
-## Set Project and Version
-{% if cookiecutter.nwx_cmake %}
 # TODO: Uncomment when you have a git tag
 #include(get_version_from_git)
 #get_version_from_git(VERSION "${CMAKE_CURRENT_LIST_DIR}")
@@ -21,8 +21,9 @@ set(${PROJECT_NAME}_TESTS_DIR "${CMAKE_CURRENT_SOURCE_DIR}/tests")
 
 {% if cookiecutter.nwx_cmake %}
 include(nwx_versions)
+{% else %}
+include(cmake/get_cmake_modules.cmake)
 {% endif %}
-include(get_cmaize)
 
 ## Options ##
 cmaize_option_list(
