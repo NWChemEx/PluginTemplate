@@ -75,6 +75,8 @@ jobs:
       - name: Configure, build, and test the project
         run: |
           cd ${PROJECT_SLUG}
+          pwd
+          ls
           cmake -Bbuild -H. \
                 -DCMAKE_TOOLCHAIN_FILE=./default_toolchain.cmake \
                 -DCMAKE_INSTALL_PREFIX=./install
