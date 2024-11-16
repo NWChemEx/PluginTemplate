@@ -65,19 +65,27 @@ jobs:
           PROJECT_SLUG: ${{ inputs.project_slug }}
           NWX_CMAKE: ${{ inputs.nwx_cmake }}
 
-      - name: Test current state
+      - name: Generate project from the template
         run: |       
-          # Generate the template
-          cookiecutter ./cookiecutter.zip --no-input --config-file configure.yaml
-          cd ${PROJECT_SLUG}
+          cookiecutter ./cookiecutter.zip \
+                        --no-input\
+                        --config-file configure.yaml
+        shell: bash
 
-          # Configure, build, and test
+      - name: Configure the project
+        run: |
+          cd ${PROJECT_SLUG}
           cmake -Bbuild -H. \
-          -DCMAKE_TOOLCHAIN_FILE=./default_toolchain.cmake \
-          -DCMAKE_INSTALL_PREFIX=./install
+                -DCMAKE_TOOLCHAIN_FILE=./default_toolchain.cmake \
+                -DCMAKE_INSTALL_PREFIX=./install
+        shell: bash
+        env:
+          PROJECT_SLUG: ${{ inputs.project_slug }}
+
+      - name: Build and test project
+        run: |       
           cmake --build build --parallel
           cd build
           ctest -VV
         shell: bash
-        env:
-          PROJECT_SLUG: ${{ inputs.project_slug }}
+        
