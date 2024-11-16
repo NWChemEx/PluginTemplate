@@ -25,6 +25,8 @@ include(nwx_versions)
 include(cmake/get_cmake_modules.cmake)
 {% endif %}
 
+include(cmaize/cmaize)
+
 ## Options ##
 cmaize_option_list(
     BUILD_TESTING OFF "Should the tests be built?"

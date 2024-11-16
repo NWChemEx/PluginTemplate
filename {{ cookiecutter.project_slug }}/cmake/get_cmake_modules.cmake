@@ -42,8 +42,6 @@ macro(get_cmake_modules)
         unset(BUILD_TESTING CACHE)
     endif()
 
-    include(cmaize/cmaize)
-
     {% endif %}
 endmacro()
 
