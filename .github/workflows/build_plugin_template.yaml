@@ -72,20 +72,17 @@ jobs:
                         --config-file configure.yaml
         shell: bash
 
-      - name: Configure the project
+      - name: Configure, build, and test the project
         run: |
           cd ${PROJECT_SLUG}
           cmake -Bbuild -H. \
                 -DCMAKE_TOOLCHAIN_FILE=./default_toolchain.cmake \
                 -DCMAKE_INSTALL_PREFIX=./install
-        shell: bash
-        env:
-          PROJECT_SLUG: ${{ inputs.project_slug }}
-
-      - name: Build and test project
-        run: |       
+      
           cmake --build build --parallel
           cd build
           ctest -VV
         shell: bash
+        env:
+          PROJECT_SLUG: ${{ inputs.project_slug }}
         
