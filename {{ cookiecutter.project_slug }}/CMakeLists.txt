@@ -23,9 +23,10 @@ set(${PROJECT_NAME}_TESTS_DIR "${CMAKE_CURRENT_SOURCE_DIR}/tests")
 include(nwx_versions)
 {% else %}
 include(cmake/get_cmake_modules.cmake)
+include(cmaize/cmaize)
 {% endif %}
 
-include(cmaize/cmaize)
+
 
 ## Options ##
 cmaize_option_list(
