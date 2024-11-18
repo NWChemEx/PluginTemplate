@@ -21,12 +21,11 @@ set(${PROJECT_NAME}_TESTS_DIR "${CMAKE_CURRENT_SOURCE_DIR}/tests")
 
 {% if cookiecutter.nwx_cmake %}
 include(nwx_versions)
+include(get_cmaize)
 {% else %}
 include(cmake/get_cmake_modules.cmake)
 include(cmaize/cmaize)
 {% endif %}
-
-
 
 ## Options ##
 cmaize_option_list(
