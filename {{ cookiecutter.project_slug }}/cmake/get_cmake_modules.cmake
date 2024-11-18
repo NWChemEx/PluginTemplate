@@ -1,7 +1,22 @@
-function(get_cmaize)
+include_guard()
 
+macro(get_cmake_modules)
+    include(FetchContent)
+
+    {% if cookiecutter.nwx_cmake %}
+    FetchContent_Declare(
+        nwx_cmake
+        GIT_REPOSITORY https://github.com/NWChemEx/NWXCMake
+    )
+    FetchContent_MakeAvailable(nwx_cmake)
+    set(
+        CMAKE_MODULE_PATH "${CMAKE_MODULE_PATH}" "${nwx_cmake_SOURCE_DIR}/cmake"
+        CACHE STRING ""
+        FORCE
+    )
+    {% else %}
     if("${CMAIZE_VERSION}" STREQUAL "")
-        set(CMAIZE_VERSION v1.1.0 )
+        set(CMAIZE_VERSION v1.1.5 )
     endif()
 
     # Store whether we are building tests or not, then turn off the tests
@@ -26,10 +41,8 @@ function(get_cmaize)
     else()
         unset(BUILD_TESTING CACHE)
     endif()
-endfunction()
 
-# Call the function we just wrote to get CMaize
-get_cmaize()
+    {% endif %}
+endmacro()
 
-# Include CMaize
-include(cmaize/cmaize)
+get_cmake_modules()

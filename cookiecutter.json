@@ -1,4 +1,10 @@
 {
     "project_name": "New Plugin",
-    "project_slug": "{{ cookiecutter.project_name.lower().replace(' ', '_') }}"
+    "project_slug": "{{ cookiecutter.project_name.lower().replace(' ', '_') }}",
+    "nwx_cmake": true,
+    "__prompts__": {
+        "project_name": "What is the stylized name of your plugin?",
+        "project_slug": "What is the filesystem friendly name of your plugin?",
+        "nwx_cmake": "Use NWChemEx's CMake build system?"
+    }
 }
